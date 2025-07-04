@@ -1,0 +1,220 @@
+/* General Modal Styling */
+/* Background overlay to darken the page */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.4);
+    width: 450px;
+    z-index: 1000;
+}
+
+/* Show Modal & Background */
+.modal.show {
+    display: block;
+}
+
+.modal-overlay.show {
+    display: block;
+}
+
+/* Close Button */
+.close {
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+    color: black;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* Prescription Table */
+.prescription-tables {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+/* Prescription Sections */
+.prescription-section {
+    width: 48%;
+    text-align: center;
+}
+
+.prescription-section h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Prescription Tables */
+.prescription-section table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f9f9f9;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.prescription-section table th,
+.prescription-section table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Inputs in Prescription Table */
+.prescription-section input {
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+    .modal {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .prescription-tables {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .prescription-section {
+        width: 100%;
+    }
+}
+
+/* Dark Mode Styles (adjusting based on your preference) */
+body.dark-mode {
+    background-color: #000000; /* BLACK jack black */
+    color: #f8f9fa; /* Light grey (Bootstrap's default for dark text) */
+}
+
+body.dark-mode h2.text-center.text-primary {
+    color: #f8f9fa !important; /* Or any light color you prefer, like #ddd or white */
+}
+
+.dark-mode .modal {
+    background-color: #222; /* Darker shade for modal background */
+    color: #f8f9fa;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode .close {
+    color: #f8f9fa;
+}
+
+.dark-mode .close:hover {
+    color: #ddd;
+}
+
+.dark-mode .prescription-section table {
+    background: #333;
+    border-color: #555;
+}
+
+.dark-mode .prescription-section table th,
+.dark-mode .prescription-section table td {
+    border-color: #555;
+    color: #f8f9fa;
+}
+
+.dark-mode .prescription-section h3 {
+    color: #aaa; /* Slightly lighter than text */
+}
+
+.dark-mode .prescription-section input {
+    background-color: #444;
+    color: #f8f9fa;
+    border-color: #555;
+}
+
+.dark-mode .table thead th {
+    background-color: #333;
+    color: #f8f9fa;
+    border-color: #555;
+}
+
+.dark-mode .table tbody tr {
+    background-color: #222;
+    color: #f8f9fa;
+}
+
+.dark-mode .table tbody td {
+    border-color: #555;
+}
+
+/* Button Styles for Dark Mode */
+.dark-mode .btn-primary {
+    background-color: #0e5db1; /* Bootstrap's primary color */
+    border-color: #0e5db1;
+    color: #fff;
+}
+
+.dark-mode .btn-primary:hover {
+    background-color: #7792af;
+    border-color: #0056b3;
+}
+
+.dark-mode .btn-success {
+    background-color: #28a745; /* Bootstrap's success color */
+    border-color: #28a745;
+    color: #fff;
+}
+
+.dark-mode .btn-success:hover {
+    background-color: #1e7e34;
+    border-color: #1e7e34;
+}
+
+.dark-mode .btn-secondary {
+    background-color: #6c757d; /* Bootstrap's secondary color */
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.dark-mode .btn-secondary:hover {
+    background-color: #545b62;
+    border-color: #545b62;
+}
+
+.dark-mode .btn-info {
+    background-color: #17a2b8; /* Bootstrap's info color (for the toggle) */
+    border-color: #17a2b8;
+    color: #fff;
+}
+
+.dark-mode .btn-info:hover {
+    background-color: #117a8b;
+    border-color: #117a8b;
+}
+

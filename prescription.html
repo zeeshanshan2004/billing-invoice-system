@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Style/prescription.css">
+    <style>
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #6c757d;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 position-relative">
+        <button type="button" class="close-btn" onclick="closePrescription()">
+            <span>&times;</span>
+        </button>
+        <h2 class="text-center text-primary mb-4">Prescription Details</h2>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <h5 class="mb-2">Right Eye (R)</h5>
+                <div class="mb-2">
+                    <label for="rightSph" class="form-label">Sph (Sphere)</label>
+                    <input type="text" class="form-control" id="rightSph" placeholder="+/-...">
+                </div>
+                <div class="mb-2">
+                    <label for="rightCyl" class="form-label">Cyl (Cylinder)</label>
+                    <input type="text" class="form-control" id="rightCyl" placeholder="+/-...">
+                </div>
+                <div class="mb-2">
+                    <label for="rightAxis" class="form-label">Axis</label>
+                    <input type="number" class="form-control" id="rightAxis" min="1" max="180" placeholder="1-180">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5 class="mb-2">Left Eye (L)</h5>
+                <div class="mb-2">
+                    <label for="leftSph" class="form-label">Sph (Sphere)</label>
+                    <input type="text" class="form-control" id="leftSph" placeholder="+/-...">
+                </div>
+                <div class="mb-2">
+                    <label for="leftCyl" class="form-label">Cyl (Cylinder)</label>
+                    <input type="text" class="form-control" id="leftCyl" placeholder="+/-...">
+                </div>
+                <div class="mb-2">
+                    <label for="leftAxis" class="form-label">Axis</label>
+                    <input type="number" class="form-control" id="leftAxis" min="1" max="180" placeholder="1-180">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="lensType" class="form-label">Lens Type</label>
+            <input type="text" class="form-control" id="lensType" placeholder="e.g., Single Vision, Bifocal">
+        </div>
+
+        <div class="mb-3">
+            <label for="prescriptionNotes" class="form-label">Additional Notes</label>
+            <textarea class="form-control" id="prescriptionNotes" rows="3" placeholder="Any specific instructions..."></textarea>
+        </div>
+
+        <button class="btn btn-success w-100 mb-2" onclick="savePrescriptionAndClose()">Save & Close</button>
+        <a href="index.html" class="btn btn-secondary w-100">Back to Invoice (Without Saving)</a>
+    </div>
+
+    <script>
+        function closePrescription() {
+            window.location.href = 'index.html';
+        }
+
+        function savePrescriptionAndClose() {
+            const rightSph = document.getElementById('rightSph').value.trim();
+            const rightCyl = document.getElementById('rightCyl').value.trim();
+            const rightAxis = document.getElementById('rightAxis').value.trim();
+            const leftSph = document.getElementById('leftSph').value.trim();
+            const leftCyl = document.getElementById('leftCyl').value.trim();
+            const leftAxis = document.getElementById('leftAxis').value.trim();
+            const lensType = document.getElementById('lensType').value.trim();
+            const prescriptionNotes = document.getElementById('prescriptionNotes').value.trim();
+
+            const prescriptionData = {
+                rightEyePower: `${rightSph} / ${rightCyl} / ${rightAxis}`, // Combine right eye details
+                leftEyePower: `${leftSph} / ${leftCyl} / ${leftAxis}`,   // Combine left eye details
+                lensType: lensType,
+                additionalNotes: prescriptionNotes
+            };
+
+            localStorage.setItem('prescription', JSON.stringify(prescriptionData));
+            window.location.href = 'index.html';
+        }
+
+        // Load saved prescription data on page load (if any)
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedPrescription = localStorage.getItem('prescription');
+            if (savedPrescription) {
+                const data = JSON.parse(savedPrescription);
+                // Populate fields based on the flattened structure
+                const rightEyeParts = (data.rightEyePower || '').split(' / ');
+                const leftEyeParts = (data.leftEyePower || '').split(' / ');
+
+                document.getElementById('rightSph').value = rightEyeParts[0] || '';
+                document.getElementById('rightCyl').value = rightEyeParts[1] || '';
+                document.getElementById('rightAxis').value = rightEyeParts[2] || '';
+                document.getElementById('leftSph').value = leftEyeParts[0] || '';
+                document.getElementById('leftCyl').value = leftEyeParts[1] || '';
+                document.getElementById('leftAxis').value = leftEyeParts[2] || '';
+                document.getElementById('lensType').value = data.lensType || '';
+                document.getElementById('prescriptionNotes').value = data.additionalNotes || '';
+            }
+        });
+    </script>
+</body>
+</html>
