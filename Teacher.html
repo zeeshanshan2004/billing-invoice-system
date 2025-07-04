@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Panel</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #121212;
+      color: #eee;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .light-mode {
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      background: inherit;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background: #03a9f4;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #0288d1;
+    }
+
+    /* Toggle Switch */
+    .toggle-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      border-radius: 30px;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 24px;
+      width: 24px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="toggle-wrapper">
+    <label class="switch">
+      <input type="checkbox" id="modeToggle" onchange="toggleMode()">
+      <span class="slider"></span>
+    </label>
+    <span style="margin-left:10px;">Toggle Dark/Light</span>
+  </div>
+
+  <div class="container">
+    <h1>Teacher Panel</h1>
+    <input id="q" placeholder="Question">
+    <input id="o1" placeholder="Option 1">
+    <input id="o2" placeholder="Option 2">
+    <input id="o3" placeholder="Option 3">
+    <input id="o4" placeholder="Option 4">
+    <input id="ans" placeholder="Correct Answer">
+    <button onclick="addQuestion()">Add Question</button>
+  </div>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('light-mode');
+    }
+
+    function addQuestion() {
+      const q = document.getElementById('q').value.trim();
+      const o1 = document.getElementById('o1').value.trim();
+      const o2 = document.getElementById('o2').value.trim();
+      const o3 = document.getElementById('o3').value.trim();
+      const o4 = document.getElementById('o4').value.trim();
+      const ans = document.getElementById('ans').value.trim();
+
+      if (q && o1 && o2 && o3 && o4 && ans) {
+        const data = JSON.parse(localStorage.getItem('quizData')) || [];
+        data.push({ question: q, options: [o1, o2, o3, o4], answer: ans });
+        localStorage.setItem('quizData', JSON.stringify(data));
+        alert("Question added!");
+        ['q', 'o1', 'o2', 'o3', 'o4', 'ans'].forEach(id => document.getElementById(id).value = "");
+      } else {
+        alert("Please fill all fields!");
+      }
+    }
+
+    console.log(JSON.parse(localStorage.getItem("quizData")));
+
+
+
+  </script>
+</body>
+</html>
